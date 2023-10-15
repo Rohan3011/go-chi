@@ -45,15 +45,12 @@ func main() {
 			return
 		}
 
-		fmt.Println(weather)
-
 		weatherDisplay, err := extractWeatherData(city, weather)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(fmt.Sprintf("failed to extract weather data %s", err)))
 			return
 		}
-		w.Write([]byte(fmt.Sprintf("weather: %s", weather)))
 		t, _ := template.ParseFiles("views/weather.html")
 		t.Execute(w, weatherDisplay)
 
